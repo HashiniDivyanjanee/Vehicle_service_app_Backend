@@ -19,14 +19,11 @@ router.get('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
     const { LatestID } = req.body;
-
-    // Validate the request body
     if (!LatestID) {
         return res.status(400).json({ error: 'LatestID is required' });
     }
 
     try {
-        // Correctly pass parameters to the query
         const [result] = await db.execute(
             'UPDATE primarykey_settings SET LatestID = ? WHERE Section = "JOB CARD"',
             [LatestID]
