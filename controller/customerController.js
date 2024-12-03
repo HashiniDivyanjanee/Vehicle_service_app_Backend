@@ -21,14 +21,32 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const [rows] = await db.execute('SELECT Cust_ID, Cust_Name, Phone FROM customer');
+        const phones = rows.map(row => row.Phone); 
         res.status(200).json({
             message: "Fetched Successfully",
-            data: rows,
+            phones: phones,
         })
     } catch (error) {
         console.error('Database Error:', error.message);
         res.status(500).json({ error: error.message });
     }
 });
+router.get('/', (req, res) => {
+    const phone = req.query.phone;
+    if (!phone) {
+      return res.status(400).json({ error: 'Phone number is required' });
+    }
+  
+    const query = 'SELECT Cust_ID, Cust_Name FROM customer WHERE Phone = ?';
+    db.query(query, [phone], (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (result.length === 0) {
+        return res.status(404).json({ message: 'Employee not found' });
+      }
+      res.json(result[0]);
+    });
+  });
+
+ 
 
 module.exports = router;
