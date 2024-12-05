@@ -26,28 +26,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-// router.get('/', async (req, res) => {
-//     try {
-//         const { Phone } = req.query;
-//         console.log('Phone parameter:', Phone);
-
-//         if (!Phone) {
-//             return res.status(400).json({ error: "Phone parameter is required" });
-//         }
-
-//         const [rows] = await db.execute('SELECT Cust_ID, Cust_Name, Phone FROM customer WHERE Phone = ?', [Phone]);
-
-//         const phones = rows.map(row => row.Phone);
-
-//         res.status(200).json({
-//             message: "Fetched Successfully",
-//             phones: phones,
-//         });
-//     } catch (error) {
-//         console.error('Database Error:', error.message);
-//         res.status(500).json({ error: error.message });
-//     }
-// });
-
-
 module.exports = router;
