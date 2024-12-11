@@ -24,4 +24,19 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const [rows] = await db.execute('SELECT Job_Number, Job_Type, Scheduled_Date, Cust_Name, Sub_Total FROM a_job_card');
+
+
+        res.status(200).json({
+            message: "Fetched Successfully",
+            data: rows,
+        })
+    } catch (error) {
+        console.error('Database Error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;
