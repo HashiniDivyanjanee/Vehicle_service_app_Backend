@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const [rows] = await db.execute('SELECT Job_Number, Job_Type, Scheduled_Date, Cust_Name, Sub_Total FROM a_job_card');
+        const [rows] = await db.execute('SELECT Job_Number, Job_Type, Scheduled_Date, Cust_Name, Sub_Total FROM a_job_card order by Scheduled_Date DESC');
 
 
         res.status(200).json({
